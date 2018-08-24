@@ -1,0 +1,39 @@
+{% extends '../home.html' %}
+{% block content %}
+<h1>Hello Blog ({{ toto | length}} articles)</h1>
+<br>
+<!--{{ toto }}
+
+<ul>
+ pour excuter quelques chose utiliser accolade pourcentage
+{% for titi in toto %}
+ utiliser double accolade pour afficher quelque chose
+  <li>{{ titi.title }}</li>
+  <li>{{ titi.body }}</li>
+ endfor pour fermer la boucle
+{% endfor %}
+</ul>-->
+
+
+{% for titi in toto %}
+<article>
+  <h2>#{{ titi.id }} - {{ titi.title | upper }}</h2>
+  <div id="minImg">
+  <center>
+  <img src="{{ titi.image }}" alt="">
+  </center>
+  </div>
+  <p class="time"><time datetime="{{ titi.created_at|date:'Y-m-d'}}">Posted : {{ titi.created_at|timesince }} ago</time></p>
+  <p id="article">{{ titi.body | truncatewords:4 }}</p>
+  <a href="{% url 'blog:show' titi.id %}">lire la suite</a>
+
+
+  {% if not forloop.last %}
+  <hr>
+  {% endif %}
+</article>
+
+{% empty %}
+<p>Sorry, no post available</p>
+{% endfor %}
+{% endblock %}

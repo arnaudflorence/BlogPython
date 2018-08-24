@@ -1,0 +1,40 @@
+.copyright{
+  text-align: center;
+}
+
+.container{
+  margin-top: 3em;
+}
+
+h1, h2{
+  font-family: 'Pacifico', cursive;
+}
+
+#article{
+  font-size:20;
+  color:black;
+  text-align: justify;
+}
+
+#minImg{
+  height: 300px;
+  width: 100%;
+  overflow: hidden;
+   align-items: center;
+   display: flex;
+}
+#image_show{
+
+  width: 100%;
+  overflow: hidden;
+   align-items: center;
+   display: flex;
+}
+
+img{
+  width: 110%;
+}
+
+#retour{
+  padding-left:0%;
+}

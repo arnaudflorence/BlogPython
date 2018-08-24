@@ -1,0 +1,51 @@
+{% extends '../home.html' %}
+{% block content %}
+<article>
+<h1>#{{ toto.id }} - {{ toto.title}}</h1>
+
+<p id="article">{{ toto.body}}</p>
+<div id="image_show">
+<center>
+<img src="{{ toto.image }}" alt="">
+</center>
+</div>
+
+<p class="time"><time datetime="{{ toto.created_at|date:'Y-m-d'}}">Posted : {{ toto.created_at|timesince }} ago</time></p>
+
+</article>
+<a id="retour" class="nav-link" href="{% url 'blog:index' %}">Retour aux Articles</a>
+<!--comments -------------------------------->
+
+
+<h2>{{ com.id | length }} Commentaires</h2>
+
+<hr>
+<div class="comment">
+  <div class="row">
+    <div class="col-3">
+       <p>{{com.user}}</p>
+    </div>
+    <div class="col">
+       <p>{{com.content}}</p>
+       <p>{{ com.id }}</p>
+    </div>
+</div>
+</div>
+
+<!--formulaire comments -------------------------------->
+<form method="post" role="form" action="">
+  {% csrf_token %}
+  <fieldset>
+
+    <div class="form-group">
+      <label for="exampleTextarea">Example textarea</label>
+      <textarea class="form-control" id="exampleTextarea" rows="3"></textarea>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Poster</button>
+
+  </fieldset>
+</form>
+
+
+{% endblock %}
