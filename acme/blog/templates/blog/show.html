@@ -16,21 +16,15 @@
 <a id="retour" class="nav-link" href="{% url 'blog:index' %}">Retour aux Articles</a>
 <!--comments -------------------------------->
 
+{% for comment in comments %}
+<article>
+  <h2>{{ comment.id | length }} Commentaires</h2>
 
-<h2>{{ com.id | length }} Commentaires</h2>
+  <p class="time"><time datetime="{{ comment.created_at|date:'Y-m-d'}}">Posted : {{ comment.created_at|timesince }} ago</time></p>
+  <p >{{ comment.content }}</p>
 
-<hr>
-<div class="comment">
-  <div class="row">
-    <div class="col-3">
-       <p>{{com.user}}</p>
-    </div>
-    <div class="col">
-       <p>{{com.content}}</p>
-       <p>{{ com.id }}</p>
-    </div>
-</div>
-</div>
+</article>
+{% endfor %}
 
 <!--formulaire comments -------------------------------->
 <form method="post" role="form" action="">

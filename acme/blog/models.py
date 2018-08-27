@@ -1,3 +1,5 @@
+from django.contrib.contenttypes.fields import GenericForeignKey
+from django.contrib.contenttypes.models import ContentType
 from django.db import models
 from django.conf import settings
 
@@ -21,6 +23,7 @@ class Comment(TimespantedModel):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, default=1, on_delete=models.CASCADE)
     content = models.TextField(max_length=255)
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
+
 
     def __unicode__(this):
         return str(this.user.username)

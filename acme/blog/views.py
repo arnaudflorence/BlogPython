@@ -1,12 +1,12 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import Http404, HttpResponse, HttpResponseRedirect
 from django.urls import reverse
+from django.contrib.contenttypes.models import ContentType
 #from .mocks import Post
 
 from blog.forms.forms import UsersForms
 from django.contrib.auth import authenticate, login, logout
 from django.views.generic import View
-
 
 from .models import Post
 from .models import Comment
@@ -28,13 +28,20 @@ def show(request, id):
         posts = Post.objects.get(pk=id)
     except Post.DoesNotExist:
         raise Http404('Sorry, post #{} not found.'.format(id))
-    return render(request, 'blog/show.html', {'toto' : posts})
+
+    content = ContentType.objects.get_for_model(Post)
+    obj_id = posts.id
+    #Post.objects.get(id=posts.id)
+    comments = Comment.objects.filter(content=content, post_id=obj_id)
+    context = {
+        "comments":comments,
+        'toto' : posts,
+    }
+
+    return render(request, 'blog/show.html', context)
 
 #------------------------------------------------Liste des Commentaires-----------------------------------------------------------
 
-# def index(request):
-#     com = Comment.objects.all()
-#     return render(request, 'blog/show.html', {'com' : com})
 
 #------------------------------------------------ajouter Commentaires-----------------------------------------------------------
 
