@@ -10,23 +10,22 @@
 </center>
 </div>
 
-<p class="time"><time datetime="{{ toto.created_at|date:'Y-m-d'}}">Posted : {{ toto.created_at|timesince }} ago</time></p>
+<p class="time"><time datetime="{{ toto.created_at|date:'Y-m-d'}}">Posted : {{ toto.created_at }} </time></p>
 
 </article>
 <a id="retour" class="nav-link" href="{% url 'blog:index' %}">Retour aux Articles</a>
-<!--comments -------------------------------->
-
+<!--comments ------------------------------------------------------------------------------->
+<h2>{{ comments | length }} Commentaires</h2>
 {% for comment in comments %}
 <article>
-  <h2>{{ comment.id | length }} Commentaires</h2>
-
+  <p id="commentaires" >{{ comment.content }}</p>
   <p class="time"><time datetime="{{ comment.created_at|date:'Y-m-d'}}">Posted : {{ comment.created_at|timesince }} ago</time></p>
-  <p >{{ comment.content }}</p>
 
 </article>
+<hr>
 {% endfor %}
 
-<!--formulaire comments -------------------------------->
+<!--formulaire comments ------------------------------------------------------------------------->
 <form method="post" role="form" action="">
   {% csrf_token %}
   <fieldset>
