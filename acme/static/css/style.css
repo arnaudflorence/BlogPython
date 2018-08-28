@@ -43,3 +43,11 @@ img{
   color:black;
   font-weight: 500;
 }
+
+.comBlock{
+  padding:0.5em;
+  border:solid;
+  border-color: #78C2AD;
+  border-width: 1px;
+  border-radius: 15px;
+}

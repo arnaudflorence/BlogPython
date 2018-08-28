@@ -23,22 +23,10 @@
 {% endif %}
 </center><hr>
 <br>
-{% for comment in comments %}
-<article>
-
-  <p id="commentaires" >{{ comment.content }}</p>
-  <p class="time"><time datetime="{{ comment.created_at|date:'Y-m-d'}}">Posted : {{ comment.created_at|timesince }} ago by {{ comment.user.username }}</time></p>
-
-</article>
-{% if not forloop.last %}
-<hr>
-{% endif %}
-{% endfor %}
-
 <!--formulaire comments ------------------------------------------------------------------------->
 {% if user.username %}
 
-<form method="post" role="formCom" action="">
+<form class="comBlock" method="post" role="formCom" action="">
   {% csrf_token %}
   <fieldset>
 
@@ -52,5 +40,18 @@
   </fieldset>
 </form>
 {% endif %}
+<hr>
+
+{% for comment in comments %}
+<article>
+
+  <p id="commentaires" >{{ comment.content }}</p>
+  <p class="time"><time datetime="{{ comment.created_at|date:'Y-m-d'}}">Posted : {{ comment.created_at|timesince }} ago by {{ comment.user.username }}</time></p>
+
+</article>
+{% if not forloop.last %}
+<hr>
+{% endif %}
+{% endfor %}
 
 {% endblock %}

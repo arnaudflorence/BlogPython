@@ -27,7 +27,7 @@ def show(request, id):
     #post = get_object_or_404(Post, pk=id)
     try:
         posts = Post.objects.get(pk=id)
-#------------------------------------------------afficher un com-----------------------------------------------------------
+      #--------------------afficher un com--------------------
         com = Comment.objects.filter(post=posts.id)
         context = {
             "comments":com,
@@ -38,13 +38,6 @@ def show(request, id):
         raise Http404('Sorry, post #{} not found.'.format(id))
 
     return render(request, 'blog/show.html', context)
-
-#------------------------------------------------Liste des Commentaires-----------------------------------------------------------
-
-
-#------------------------------------------------ajouter Commentaires-----------------------------------------------------------
-
-
 
 #------------------------------------------------login-----------------------------------------------------------
 
