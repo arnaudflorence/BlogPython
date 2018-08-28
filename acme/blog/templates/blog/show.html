@@ -14,24 +14,36 @@
 
 </article>
 <a id="retour" class="nav-link" href="{% url 'blog:index' %}">Retour aux Articles</a>
+<br>
+
 <!--comments ------------------------------------------------------------------------------->
-<h2>{{ comments | length }} Commentaires</h2>
+<hr><center><h2>{{ comments | length }} commentaires</h2>
+{% if not user.username %}
+<a class="btn btn-outline-danger" href="{% url 'blog:login' %}">Veuillez vous connecter pour pouvoir commenter</a>
+{% endif %}
+</center><hr>
+<br>
 {% for comment in comments %}
 <article>
+
   <p id="commentaires" >{{ comment.content }}</p>
-  <p class="time"><time datetime="{{ comment.created_at|date:'Y-m-d'}}">Posted : {{ comment.created_at|timesince }} ago</time></p>
+  <p class="time"><time datetime="{{ comment.created_at|date:'Y-m-d'}}">Posted : {{ comment.created_at|timesince }} ago by {{ comment.user.username }}</time></p>
 
 </article>
+{% if not forloop.last %}
 <hr>
+{% endif %}
 {% endfor %}
 
 <!--formulaire comments ------------------------------------------------------------------------->
-<form method="post" role="form" action="">
+{% if user.username %}
+
+<form method="post" role="formCom" action="">
   {% csrf_token %}
   <fieldset>
 
     <div class="form-group">
-      <label for="exampleTextarea">Example textarea</label>
+      <label for="exampleTextarea">Commenter en tant que <b>{{ user.username }}</b></label>
       <textarea class="form-control" id="exampleTextarea" rows="3"></textarea>
     </div>
 
@@ -39,6 +51,6 @@
 
   </fieldset>
 </form>
-
+{% endif %}
 
 {% endblock %}

@@ -99,3 +99,5 @@ class UserFormView(View):
                     return redirect('blog/index.html')
 
         return render(request, self.template_name, {'form': form})
+
+#------------------------------------------------Commenter-----------------------------------------------------------
