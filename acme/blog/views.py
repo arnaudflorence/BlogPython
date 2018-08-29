@@ -39,6 +39,7 @@ def show(request, id):
                 return HttpResponseRedirect(reverse('blog:index'))
 
 
+
         else:
             comment_form = CommentForm()
 

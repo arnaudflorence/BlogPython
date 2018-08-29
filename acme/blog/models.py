@@ -3,6 +3,7 @@ from django.contrib.contenttypes.models import ContentType
 from django.db import models
 from django.conf import settings
 
+
 class TimespantedModel(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -21,7 +22,8 @@ class Post(TimespantedModel):
 
 class Comment(TimespantedModel):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, default=1, on_delete=models.CASCADE)
-    content = models.TextField(max_length=255)
+    content = models.TextField(max_length=500)
+    reply = models.ForeignKey('Comment', null=True, related_name="replies", on_delete=models.CASCADE)
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
 
 

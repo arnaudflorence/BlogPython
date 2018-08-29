@@ -20,16 +20,22 @@
 
 <form class="comBlock" method="POST" role="form" action="">
   {% csrf_token %}
-  
+
     <div class="form-group">
       <label for="exampleTextarea">Commenter en tant que <b>{{ user.username }}</b></label>
-      <textarea name="content" class="form-control" required id="id_content" rows="3"></textarea>
+      <textarea required id="id_content" name="content" class="form-control" required id="id_content" rows="3"></textarea>
     </div>
 
     <button type="submit" value="Submit" class="btn btn-primary">Poster</button>
 </form>
 {% endif %}
 <!--comments ------------------------------------------------------------------------------->
+{% if not comments %}
+{% if not user.username %}
+<a class="btn btn-outline-danger" href="{% url 'blog:login' %}">Veuillez vous connecter pour pouvoir commenter</a>
+{% endif %}
+<hr><center><h2>Il n'y a pas de commentaire</h2></center><hr>
+{% else %}
 <hr><center><h2>{{ comments.count }} commentaire{{ comments|pluralize }}</h2>
 {% if not user.username %}
 <a class="btn btn-outline-danger" href="{% url 'blog:login' %}">Veuillez vous connecter pour pouvoir commenter</a>
@@ -48,5 +54,5 @@
 <hr>
 {% endif %}
 {% endfor %}
-
+{% endif %}
 {% endblock %}
