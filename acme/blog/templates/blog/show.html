@@ -15,32 +15,27 @@
 </article>
 <a id="retour" class="nav-link" href="{% url 'blog:index' %}">Retour aux Articles</a>
 <br>
+<!--formulaire comments ------------------------------------------------------------------------->
+{% if user.username %}
 
+<form class="comBlock" method="POST" role="form" action="">
+  {% csrf_token %}
+  
+    <div class="form-group">
+      <label for="exampleTextarea">Commenter en tant que <b>{{ user.username }}</b></label>
+      <textarea name="content" class="form-control" required id="id_content" rows="3"></textarea>
+    </div>
+
+    <button type="submit" value="Submit" class="btn btn-primary">Poster</button>
+</form>
+{% endif %}
 <!--comments ------------------------------------------------------------------------------->
-<hr><center><h2>{{ comments | length }} commentaires</h2>
+<hr><center><h2>{{ comments.count }} commentaire{{ comments|pluralize }}</h2>
 {% if not user.username %}
 <a class="btn btn-outline-danger" href="{% url 'blog:login' %}">Veuillez vous connecter pour pouvoir commenter</a>
 {% endif %}
 </center><hr>
-<br>
-<!--formulaire comments ------------------------------------------------------------------------->
-{% if user.username %}
 
-<form class="comBlock" method="post" role="formCom" action="">
-  {% csrf_token %}
-  <fieldset>
-
-    <div class="form-group">
-      <label for="exampleTextarea">Commenter en tant que <b>{{ user.username }}</b></label>
-      <textarea class="form-control" id="exampleTextarea" rows="3"></textarea>
-    </div>
-
-    <button type="submit" class="btn btn-primary">Poster</button>
-
-  </fieldset>
-</form>
-{% endif %}
-<hr>
 
 {% for comment in comments %}
 <article>

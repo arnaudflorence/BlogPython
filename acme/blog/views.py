@@ -4,10 +4,9 @@ from django.urls import reverse
 from django.contrib.contenttypes.models import ContentType
 #from .mocks import Post
 
-from blog.forms.forms import UsersForms
+from blog.forms.forms import UsersForms, CommentForm
 from django.contrib.auth import authenticate, login, logout
 from django.views.generic import View
-import pprint
 
 from .models import Post
 from .models import Comment
@@ -24,14 +23,29 @@ def index(request):
 #------------------------------------------------details Articles-----------------------------------------------------------
 
 def show(request, id):
-    #post = get_object_or_404(Post, pk=id)
+    post = get_object_or_404(Post, pk=id)
     try:
         posts = Post.objects.get(pk=id)
-      #--------------------afficher un com--------------------
-        com = Comment.objects.filter(post=posts.id)
+    #--------------------afficher un com--------------------
+        com = Comment.objects.filter(post=posts.id).order_by('-created_at')
+    #--------------------ecrire un com--------------------
+        if request.method == 'POST':
+            comment_form = CommentForm(request.POST or None)
+            if comment_form.is_valid():
+                content = request.POST.get('content')
+                comment = Comment.objects.create(post=post, user=request.user, content=content)
+                comment.save()
+                #return HttpResponseRedirect(post.get_absolute_url())
+                return HttpResponseRedirect(reverse('blog:index'))
+
+
+        else:
+            comment_form = CommentForm()
+
         context = {
             "comments":com,
             'toto' : posts,
+            "comment_form" : comment_form,
         }
 
     except Post.DoesNotExist:
@@ -92,5 +106,3 @@ class UserFormView(View):
                     return redirect('blog/index.html')
 
         return render(request, self.template_name, {'form': form})
-
-#------------------------------------------------Commenter-----------------------------------------------------------
