@@ -2,6 +2,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.http import Http404, HttpResponse, HttpResponseRedirect
 from django.urls import reverse
 from django.contrib.contenttypes.models import ContentType
+from django.core.paginator import Paginator
 #from .mocks import Post
 
 from blog.forms.forms import UsersForms, CommentForm
@@ -17,6 +18,11 @@ from .models import Comment
 
 def index(request):
     posts = Post.objects.all()
+
+    paginator = Paginator(posts, 2)
+    page = request.GET.get('page')
+    posts = paginator.get_page(page)
+
     return render(request, 'blog/index.html', {'toto' : posts})
 
 

@@ -44,14 +44,14 @@
 
 
 {% for comment in comments %}
-<article>
-
-  <p id="commentaires" >{{ comment.content }}</p>
-  <p class="time"><time datetime="{{ comment.created_at|date:'Y-m-d'}}">Posted : {{ comment.created_at|timesince }} ago by {{ comment.user.username }}</time></p>
-
-</article>
+<div class="card border-primary mb-3" style="max-width: 200rem;">
+  <div class="card-header">  <p class="time"><time datetime="{{ comment.created_at|date:'Y-m-d'}}"><b>Posted : </b>{{ comment.created_at|timesince }} ago by <b>{{ comment.user.username }}</b></time></p></div>
+  <div class="card-body">
+    <p id="commentaires" >{{ comment.content }}</p>
+  </div>
+</div>
 {% if not forloop.last %}
-<hr>
+
 {% endif %}
 {% endfor %}
 {% endif %}

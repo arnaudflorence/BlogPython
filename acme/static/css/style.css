@@ -1,3 +1,8 @@
+#mainWraper{
+  max-width: 1366px;
+  margin: auto;
+}
+
 .copyright{
   text-align: center;
 }
@@ -20,15 +25,15 @@ h1, h2{
   height: 300px;
   width: 100%;
   overflow: hidden;
-   align-items: center;
-   display: flex;
+  align-items: center;
+  display: flex;
 }
 #image_show{
 
   width: 100%;
   overflow: hidden;
-   align-items: center;
-   display: flex;
+  align-items: center;
+  display: flex;
 }
 
 img{
@@ -50,4 +55,8 @@ img{
   border-color: #78C2AD;
   border-width: 1px;
   border-radius: 15px;
+}
+
+.commentaire{
+  margin-left: 40%;
 }

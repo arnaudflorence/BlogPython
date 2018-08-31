@@ -1,1 +1,72 @@
-<h1>About</h1>
+{% extends '../home.html' %}
+{% load static %}
+{% block header %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/styleAbout.css' %}">
+{% endblock %}
+
+{% block content %}
+<h1>About me</h1>
+<br>
+<img class="sticky" id="travel" src="{% static 'img/travel.png' %}" alt="">
+
+<div class="timeline1">
+  <div class="LContainer left">
+    <div class="contenu">
+      <h2>2017</h2>
+      <p>Lorem ipsum..</p>
+    </div>
+  </div>
+
+  <div class="Lcontainer right">
+    <div class="contenu">
+      <h2>2016</h2>
+      <p>Lorem ipsum..</p>
+    </div>
+  </div>
+</div>
+<div class="timeline1">
+  <div class="LContainer left">
+    <div class="contenu">
+      <h2>2017</h2>
+      <p>Lorem ipsum..</p>
+    </div>
+  </div>
+
+  <div class="Lcontainer right">
+    <div class="contenu">
+      <h2>2016</h2>
+      <p>Lorem ipsum..</p>
+    </div>
+  </div>
+</div>
+<div class="timeline1">
+  <div class="LContainer left">
+    <div class="contenu">
+      <h2>2017</h2>
+      <p>Lorem ipsum..</p>
+    </div>
+  </div>
+
+  <div class="Lcontainer right">
+    <div class="contenu">
+      <h2>2016</h2>
+      <p>Lorem ipsum..</p>
+    </div>
+  </div>
+</div>
+<div class="timeline1">
+  <div class="LContainer left">
+    <div class="contenu">
+      <h2>2017</h2>
+      <p>Lorem ipsum..</p>
+    </div>
+  </div>
+
+  <div class="Lcontainer right">
+    <div class="contenu">
+      <h2>2016</h2>
+      <p>Lorem ipsum..</p>
+    </div>
+  </div>
+</div>
+{% endblock %}

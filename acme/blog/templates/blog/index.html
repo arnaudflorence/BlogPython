@@ -1,6 +1,6 @@
 {% extends '../home.html' %}
 {% block content %}
-<h1>Hello Blog ({{ toto | length}} articles)</h1>
+<h1>Blog ({{ toto | length}} articles)</h1>
 <br>
 <!--{{ toto }}
 
@@ -13,27 +13,92 @@
  endfor pour fermer la boucle
 {% endfor %}
 </ul>-->
+<div class="row">
+  <div class="col-sm-8">
+    <!------------------------------------------------------------ liste des Articles------------------------------------------------------------------ -->
+    {% for titi in toto %}
+    <article>
+      <h2>#{{ titi.id }} - {{ titi.title | upper }}</h2>
+      <div id="minImg">
+      <center>
+      <img src="{{ titi.image }}" alt="">
+      </center>
+      </div>
+      <p class="time"><time datetime="{{ titi.created_at|date:'Y-m-d'}}">Posted : {{ titi.created_at|timesince }} ago</time></p>
+      <p id="article">{{ titi.body | truncatewords:4 }}</p>
+      <a href="{% url 'blog:show' titi.id %}">lire la suite</a>
+      <hr>
 
+      <!-- {% if not forloop.last %}
+      <hr>
+      {% endif %} -->
+    </article>
 
-{% for titi in toto %}
-<article>
-  <h2>#{{ titi.id }} - {{ titi.title | upper }}</h2>
-  <div id="minImg">
-  <center>
-  <img src="{{ titi.image }}" alt="">
-  </center>
+    {% empty %}
+    <p>Sorry, no post available</p>
+    {% endfor %}
+  <!------------------------------------------------------------ pagination------------------------------------------------------------------ -->
+    <div class="commentaire">
+
+      <ul class="pagination">
+        {% if toto.has_previous %}
+          <li class="page-item">
+            <a class="page-link" href="?page=1">&laquo;&laquo;</a>
+          </li>
+          <li class="page-item">
+            <a class="page-link" href="?page={{ toto.previous_page_number }}">&laquo;</a>
+          </li>
+        {% endif %}
+
+        {% for num in toto.paginator.page_range %}
+          {% if toto.number == num %}
+          <li class="page-item active">
+            <a class="page-link active" href="#">{{ num }}</a>
+          </li>
+          {% elif num > toto.number|add:'-3' and num < toto.number|add:'3' %}
+          <li class="page-item">
+            <a class="page-link" href="?page={{ num }}">{{ num }}</a>
+          </li>
+          {% endif %}
+        {% endfor %}
+        {% if toto.has_next %}
+          <li class="page-item">
+            <a class="page-link" href="?page={{ toto.next_page_number }}">&raquo;</a>
+          </li>
+          <li class="page-item">
+            <a class="page-link" href="?page={{ toto.paginator.num_pages }}">&raquo;&raquo;</a>
+          </li>
+        {% endif %}
+      </ul>
+    </div>
   </div>
-  <p class="time"><time datetime="{{ titi.created_at|date:'Y-m-d'}}">Posted : {{ titi.created_at|timesince }} ago</time></p>
-  <p id="article">{{ titi.body | truncatewords:4 }}</p>
-  <a href="{% url 'blog:show' titi.id %}">lire la suite</a>
 
+  <div class="col-sm-4">
 
-  {% if not forloop.last %}
-  <hr>
-  {% endif %}
-</article>
+    <div class="card mb-3">
+    <h3 class="card-header">Card header</h3>
+    <div class="card-body">
+      <h5 class="card-title">Special title treatment</h5>
+      <h6 class="card-subtitle text-muted">Support card subtitle</h6>
+    </div>
+    <img style="height: 200px; width: 100%; display: block;" src="data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22318%22%20height%3D%22180%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20318%20180%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_158bd1d28ef%20text%20%7B%20fill%3Argba(255%2C255%2C255%2C.75)%3Bfont-weight%3Anormal%3Bfont-family%3AHelvetica%2C%20monospace%3Bfont-size%3A16pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_158bd1d28ef%22%3E%3Crect%20width%3D%22318%22%20height%3D%22180%22%20fill%3D%22%23777%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%22129.359375%22%20y%3D%2297.35%22%3EImage%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E" alt="Card image">
+    <div class="card-body">
+      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+    </div>
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item">Cras justo odio</li>
+      <li class="list-group-item">Dapibus ac facilisis in</li>
+      <li class="list-group-item">Vestibulum at eros</li>
+    </ul>
+    <div class="card-body">
+      <a href="#" class="card-link">Card link</a>
+      <a href="#" class="card-link">Another link</a>
+    </div>
+    <div class="card-footer text-muted">
+      2 days ago
+    </div>
+    </div>
+  </div>
 
-{% empty %}
-<p>Sorry, no post available</p>
-{% endfor %}
+</div>
 {% endblock %}
